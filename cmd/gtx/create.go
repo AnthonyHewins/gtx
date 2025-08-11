@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/AnthonyHewins/gtx/internal/gtx"
+	"github.com/AnthonyHewins/gtx/internal/dir"
 )
 
 type createCmd struct{}
@@ -29,7 +29,7 @@ func (n *createCmd) run(args []string) error {
 		return fmt.Errorf("must give at least 1 arg for an env")
 	}
 
-	ctx, err := gtx.CreateCtx(root, args[0])
+	ctx, err := dir.CreateCtx(root, args[0])
 	if err != nil {
 		return err
 	}

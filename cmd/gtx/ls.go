@@ -3,7 +3,7 @@ package main
 import (
 	"fmt"
 
-	"github.com/AnthonyHewins/gtx/internal/gtx"
+	"github.com/AnthonyHewins/gtx/internal/dir"
 )
 
 type lsCmd struct{}
@@ -26,7 +26,7 @@ Lists information about contexts from config root
 }
 
 func (l lsCmd) run() error {
-	t, err := gtx.NewTree(root)
+	t, err := dir.NewTree(root)
 	if err != nil {
 		return err
 	}

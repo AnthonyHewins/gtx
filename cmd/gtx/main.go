@@ -34,7 +34,7 @@ func main() {
 		err = create.run(os.Args[2:])
 	case "edit":
 		err = edit.run(os.Args[2:])
-	case "rm":
+	case "rm", "del", "delete":
 		err = rm.run(os.Args[2:])
 	default:
 		fmt.Printf("Unknown command: %s\n", os.Args[1])
