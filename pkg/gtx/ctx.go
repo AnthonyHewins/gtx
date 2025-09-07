@@ -1,4 +1,4 @@
-package dir
+package gtx
 
 import (
 	"fmt"
@@ -7,23 +7,32 @@ import (
 	"strings"
 )
 
-type Ctx struct {
-	Root    string
-	Repo    string
+// Repo is a data structure with all the contexts available for a repository
+// and where it's located at the home system. It represents a folder location on
+// your file system, and various files on your filesystem
+type Repo struct {
+	// Root directory of all repos, likely $HOME/.config/gtx unless configured otherwise
+	Root string
+	// Repo name, which is joined together with Root
+	Repo string
+	// Current active repo that will be loaded
 	Current string
-	Envs    []string
+	// List of all envs for the dir
+	Envs []string
 }
 
-func CreateCtx(configDir, repo string) (Ctx, error) {
+// Create a new repo
+func CreateRepo(configDir, repo string) (Repo, error) {
 	if err := os.MkdirAll(filepath.Join(configDir, repo), 0700); err != nil {
-		return Ctx{}, err
+		return Repo{}, err
 	}
 
-	return ReadCtx(configDir, repo)
+	return ReadRepo(configDir, repo)
 }
 
-func ReadCtx(root, repo string) (Ctx, error) {
-	c := Ctx{Root: root, Repo: repo}
+// Reads the filesystem for a repo
+func ReadRepo(root, repo string) (Repo, error) {
+	c := Repo{Root: root, Repo: repo}
 
 	repoRoot := filepath.Join(root, repo)
 
@@ -57,17 +66,19 @@ func ReadCtx(root, repo string) (Ctx, error) {
 	return c, nil
 }
 
-func (c *Ctx) Path() string {
+// Gets the repo path doing a filepath.Join of Root and Repo,
+// giving you the path of the repo's contexts and the current context
+func (c *Repo) Path() string {
 	return filepath.Join(c.Root, c.Repo)
 }
 
-func (c *Ctx) AddEnv(root, name string) error {
+// Add a new context to the repo
+func (c *Repo) AddCtx(root, name string) error {
 	if err := os.WriteFile(filepath.Join(root, c.Repo, name+".yaml"), []byte{}, 0600); err != nil {
 		return err
 	}
 
-	c.Envs = append(c.Envs, name)
-	if len(c.Envs) > 1 {
+	if c.Envs = append(c.Envs, name); len(c.Envs) > 1 {
 		return nil
 	}
 
@@ -75,7 +86,7 @@ func (c *Ctx) AddEnv(root, name string) error {
 }
 
 // Read the current context
-func (c *Ctx) Read() ([]byte, error) {
+func (c *Repo) Read() ([]byte, error) {
 	buf, err := os.ReadFile(filepath.Join(c.Path(), "current"))
 	if err != nil {
 		return nil, fmt.Errorf("failed reading current ctx: %w", err)

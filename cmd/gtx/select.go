@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path/filepath"
 
-	"github.com/AnthonyHewins/gtx/internal/dir"
+	"github.com/AnthonyHewins/gtx/pkg/gtx"
 )
 
 type selectCmd struct{}
@@ -31,5 +31,5 @@ func (s selectCmd) run(args []string) error {
 		return fmt.Errorf("must supply repo and env at minimum")
 	}
 
-	return dir.SetCtx(filepath.Join(root, args[0]), args[1])
+	return gtx.SetCtx(filepath.Join(root, args[0]), args[1])
 }

@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"path/filepath"
 
-	"github.com/AnthonyHewins/gtx/internal/dir"
+	"github.com/AnthonyHewins/gtx/pkg/gtx"
 )
 
 type editCmd struct{}
@@ -36,7 +36,7 @@ func (e editCmd) run(args []string) error {
 		return fmt.Errorf("not enough args to edit")
 	}
 
-	_, err := dir.CreateCtx(root, args[0])
+	_, err := gtx.CreateRepo(root, args[0])
 	if err != nil {
 		return err
 	}

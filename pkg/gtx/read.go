@@ -6,7 +6,6 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/AnthonyHewins/gtx/internal/dir"
 	"github.com/goccy/go-yaml"
 )
 
@@ -36,15 +35,15 @@ func ReadIntoEnvFrom(root, repo string) error {
 	return nil
 }
 
-func ReadIntoEnv(repo string) {
-	ReadIntoEnvFrom(
+func ReadIntoEnv(repo string) error {
+	return ReadIntoEnvFrom(
 		filepath.Join(os.Getenv("HOME"), ".config", "gtx"),
 		repo,
 	)
 }
 
 func readCurrent(path, repo string) ([]byte, error) {
-	c, err := dir.ReadCtx(path, repo)
+	c, err := ReadRepo(path, repo)
 	if err != nil {
 		return nil, err
 	}

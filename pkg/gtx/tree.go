@@ -5,27 +5,27 @@ import (
 	"os"
 )
 
-type Tree struct {
+type RepoTree struct {
 	Dir  string
-	Ctxs []Ctx
+	Ctxs []Repo
 }
 
-func NewTree(configDir string) (*Tree, error) {
+func NewTree(configDir string) (*RepoTree, error) {
 	entries, err := os.ReadDir(configDir)
 	switch {
 	case errors.Is(err, os.ErrNotExist):
-		return &Tree{}, nil
+		return &RepoTree{}, nil
 	case err != nil:
 		return nil, err
 	}
 
-	ctxs := []Ctx{}
+	ctxs := []Repo{}
 	for _, entry := range entries {
 		if !entry.IsDir() {
 			continue
 		}
 
-		c, err := ReadCtx(configDir, entry.Name())
+		c, err := ReadRepo(configDir, entry.Name())
 		if err != nil {
 			return nil, err
 		}
@@ -33,5 +33,5 @@ func NewTree(configDir string) (*Tree, error) {
 		ctxs = append(ctxs, c)
 	}
 
-	return &Tree{Ctxs: ctxs}, nil
+	return &RepoTree{Ctxs: ctxs}, nil
 }
