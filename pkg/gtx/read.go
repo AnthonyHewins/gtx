@@ -20,8 +20,7 @@ func ReadInto(repo string, x any) error {
 	return ReadIntoFrom(DefaultRoot, repo, x)
 }
 
-// Read the current config located at root's repo
-// into x
+// Read the current config located at root's repo into x
 func ReadIntoFrom(root, repo string, x any) error {
 	buf, err := readCurrent(root, repo)
 	if err != nil {
@@ -29,17 +28,6 @@ func ReadIntoFrom(root, repo string, x any) error {
 	}
 
 	return yaml.Unmarshal(buf, x)
-}
-
-func ReadIntoEnvFrom(root, repo string) error {
-	return nil
-}
-
-func ReadIntoEnv(repo string) error {
-	return ReadIntoEnvFrom(
-		filepath.Join(os.Getenv("HOME"), ".config", "gtx"),
-		repo,
-	)
 }
 
 func readCurrent(path, repo string) ([]byte, error) {

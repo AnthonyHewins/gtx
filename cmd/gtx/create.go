@@ -20,8 +20,7 @@ func (c createCmd) long() string {
 	return `usage: create REPO [ENV]
 
 Create a new context, and optionally also create a new environment
-for that context
-`
+for that context`
 }
 
 func (n *createCmd) run(args []string) error {

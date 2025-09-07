@@ -68,9 +68,7 @@ func ReadRepo(root, repo string) (Repo, error) {
 
 // Gets the repo path doing a filepath.Join of Root and Repo,
 // giving you the path of the repo's contexts and the current context
-func (c *Repo) Path() string {
-	return filepath.Join(c.Root, c.Repo)
-}
+func (c *Repo) Path() string { return filepath.Join(c.Root, c.Repo) }
 
 // Add a new context to the repo
 func (c *Repo) AddCtx(root, name string) error {
@@ -99,5 +97,5 @@ func (c *Repo) Read() ([]byte, error) {
 		}
 	}
 
-	return nil, fmt.Errorf("env %s not found but was what was in current", s)
+	return nil, fmt.Errorf("env `%s` not found, but that's what the current env is set to", s)
 }

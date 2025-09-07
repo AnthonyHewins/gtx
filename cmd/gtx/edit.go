@@ -11,13 +11,9 @@ import (
 
 type editCmd struct{}
 
-func (e editCmd) name() string {
-	return "edit"
-}
+func (e editCmd) name() string { return "edit" }
 
-func (e editCmd) short() string {
-	return "Edit a context in a repo"
-}
+func (e editCmd) short() string { return "Edit a context in a repo" }
 
 func (e editCmd) long() string {
 	return fmt.Sprintf(`usage: edit REPO CTX

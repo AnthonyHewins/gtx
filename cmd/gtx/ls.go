@@ -10,13 +10,9 @@ type lsCmd struct{}
 
 var ls = lsCmd{}
 
-func (l lsCmd) name() string {
-	return "ls"
-}
+func (l lsCmd) name() string { return "ls" }
 
-func (l lsCmd) short() string {
-	return "List information about contexts"
-}
+func (l lsCmd) short() string { return "List information about contexts" }
 
 func (l lsCmd) long() string {
 	return `usage: ls
