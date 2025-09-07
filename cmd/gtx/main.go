@@ -14,7 +14,7 @@ type cmd interface {
 	long() string
 }
 
-var cmds = []cmd{ls, create, selectCommand, edit, help, rm}
+var cmds = []cmd{ls, create, selectCommand, edit, help, rm, cat}
 
 func main() {
 	if len(os.Args) < 2 {
@@ -36,6 +36,8 @@ func main() {
 		err = edit.run(os.Args[2:])
 	case "rm", "del", "delete":
 		err = rm.run(os.Args[2:])
+	case "cat":
+		err = cat.run(os.Args[2:])
 	default:
 		fmt.Printf("Unknown command: %s\n", os.Args[1])
 		help.run(1, nil)

@@ -28,7 +28,7 @@ func (l lsCmd) run() error {
 	}
 
 	bold.Printf("Config at %s\n\n", root)
-	for i, c := range t.Ctxs {
+	for i, c := range t.Repos {
 		bold.Println(c.Repo)
 
 		if len(c.Envs) == 0 {
@@ -50,7 +50,7 @@ func (l lsCmd) run() error {
 			fmt.Printf("%s %s\n", leaf, envStr)
 		}
 
-		if i != len(t.Ctxs)-1 {
+		if i != len(t.Repos)-1 {
 			fmt.Println()
 		}
 	}

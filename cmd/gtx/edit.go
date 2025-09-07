@@ -32,12 +32,18 @@ func (e editCmd) run(args []string) error {
 		return fmt.Errorf("not enough args to edit")
 	}
 
-	_, err := gtx.CreateRepo(root, args[0])
+	repo, err := gtx.CreateRepo(root, args[0])
 	if err != nil {
 		return err
 	}
 
-	run := exec.Command(os.Getenv("EDITOR"), filepath.Join(root, args[0], args[1]+".yaml"))
+	editor := os.Getenv("EDITOR")
+	if editor == "" {
+		return fmt.Errorf("no $EDITOR set; to edit this config, set this var to a text editor"+
+			" or edit the file directly at %s", repo.Path())
+	}
+
+	run := exec.Command(editor, filepath.Join(root, args[0], args[1]+".yaml"))
 	run.Stdin = os.Stdin
 	run.Stdout = os.Stdout
 	return run.Run()

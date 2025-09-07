@@ -6,10 +6,14 @@ import (
 )
 
 type RepoTree struct {
-	Dir  string
-	Ctxs []Repo
+	// Directory root location
+	Dir string
+	// All repos
+	Repos []Repo
 }
 
+// Gets all configuration information in the filesystem
+// located at configDir
 func NewTree(configDir string) (*RepoTree, error) {
 	entries, err := os.ReadDir(configDir)
 	switch {
@@ -33,5 +37,5 @@ func NewTree(configDir string) (*RepoTree, error) {
 		ctxs = append(ctxs, c)
 	}
 
-	return &RepoTree{Ctxs: ctxs}, nil
+	return &RepoTree{Repos: ctxs}, nil
 }

@@ -47,5 +47,5 @@ func readCurrent(path, repo string) ([]byte, error) {
 		)
 	}
 
-	return c.Read()
+	return c.ReadCurrent()
 }

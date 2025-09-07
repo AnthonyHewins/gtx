@@ -84,7 +84,7 @@ func (c *Repo) AddCtx(root, name string) error {
 }
 
 // Read the current context
-func (c *Repo) Read() ([]byte, error) {
+func (c *Repo) ReadCurrent() ([]byte, error) {
 	buf, err := os.ReadFile(filepath.Join(c.Path(), "current"))
 	if err != nil {
 		return nil, fmt.Errorf("failed reading current ctx: %w", err)
@@ -98,4 +98,9 @@ func (c *Repo) Read() ([]byte, error) {
 	}
 
 	return nil, fmt.Errorf("env `%s` not found, but that's what the current env is set to", s)
+}
+
+// Read the chosen context
+func (c *Repo) Read(ctx string) ([]byte, error) {
+	return os.ReadFile(filepath.Join(c.Path(), ctx+".yaml"))
 }
