@@ -1,6 +1,6 @@
 # GTX
 
-Golang contexts for your configuration
+Very lightweight golang contexts for your project's configuration
 
 ## What does it do
 
@@ -48,3 +48,21 @@ if err := gtx.ReadInto(&configObj);err!=nil{
 ```
 
 That's it. Makes it easier
+
+## Usage
+
+```shell
+usage: gtx COMMANDS
+
+GTX helps create contexts for Go applications to save config
+for different environments
+
+Commands:
+         ls     List information about contexts
+     create     Create a new context
+     select     Select current active context
+       edit     Edit a context in a repo
+       help     Display help text
+         rm     Delete a context
+        cat     Cat out the contents of a context
+```
